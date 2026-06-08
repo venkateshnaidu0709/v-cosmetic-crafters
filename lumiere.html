@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>LUMIÈRE — Luxury Beauty</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --black:#09080a;--white:#faf8f5;--gold:#c8a96b;--gold2:#e2cc99;--gold3:#8a6830;
+  --nude:#e6ddd2;--charcoal:#171316;--surface:#131015;--surface2:#1c191e;
+  --surface3:#231f26;--text:rgba(250,248,245,1);--muted:rgba(250,248,245,0.48);
+  --dim:rgba(250,248,245,0.22);--border:rgba(200,169,107,0.13);
+  --serif:'Cormorant Garamond',Georgia,serif;--sans:'Jost','Helvetica Neue',sans-serif;
+}
+html{scroll-behavior:smooth;font-size:16px;overflow-x:hidden}
+body{background:var(--black);color:var(--text);font-family:var(--sans);font-weight:300;overflow-x:hidden;cursor:none}
+
+/* ── CURSOR ── */
+#cur{position:fixed;width:7px;height:7px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s}
+#cur2{position:fixed;width:30px;height:30px;border:1px solid rgba(200,169,107,.4);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:left .12s ease,top .12s ease,width .25s,height .25s}
+body.hovering #cur{width:12px;height:12px}
+body.hovering #cur2{width:50px;height:50px;border-color:rgba(200,169,107,.2)}
+
+/* ── NAV ── */
+#nav{position:fixed;top:0;left:0;right:0;z-index:500;height:68px;display:flex;align-items:center;justify-content:space-between;padding:0 56px;transition:all .4s ease}
+#nav.solid{background:rgba(9,8,10,.88);backdrop-filter:blur(18px);border-bottom:1px solid var(--border)}
+.logo{font-family:var(--serif);font-size:21px;font-weight:500;letter-spacing:10px;color:var(--gold);text-transform:uppercase;text-decoration:none}
+.nav-links{display:flex;gap:36px;list-style:none}
+.nav-links a{font-size:10px;letter-spacing:3.5px;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .3s}
+.nav-links a:hover{color:var(--gold)}
+.nav-r{display:flex;gap:20px;align-items:center}
+.nav-btn{background:none;border:none;font-size:17px;color:var(--muted);cursor:pointer;transition:color .3s;padding:4px;position:relative}
+.nav-btn:hover{color:var(--gold)}
+.cart-dot{position:absolute;top:-4px;right:-5px;width:14px;height:14px;background:var(--gold);border-radius:50%;font-size:8px;display:flex;align-items:center;justify-content:center;color:var(--black);font-weight:600}
+
+/* ── HERO ── */
+#hero{height:100vh;min-height:680px;position:relative;display:flex;align-items:center;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 65% 45%,rgba(138,104,48,.14) 0,transparent 70%),radial-gradient(ellipse 35% 45% at 25% 70%,rgba(200,169,107,.07) 0,transparent 65%),var(--black)}
+#ptcl{position:absolute;inset:0;z-index:1;pointer-events:none}
+.hero-inner{position:relative;z-index:3;display:grid;grid-template-columns:1fr 1fr;gap:0;align-items:center;max-width:1360px;width:100%;padding:0 72px;margin:0 auto;padding-top:68px}
+.hero-text{display:flex;flex-direction:column;gap:28px}
+.hero-pre{font-size:9.5px;letter-spacing:5px;text-transform:uppercase;color:var(--gold);opacity:0;animation:fup .7s .2s ease forwards}
+.hero-h1{font-family:var(--serif);font-size:clamp(50px,5.8vw,90px);font-weight:300;line-height:1.02;letter-spacing:-1px;opacity:0;animation:fup .9s .4s ease forwards}
+.hero-h1 em{font-style:italic;color:var(--gold)}
+.hero-sub{font-size:13.5px;letter-spacing:.3px;line-height:1.75;color:var(--muted);max-width:370px;opacity:0;animation:fup .8s .65s ease forwards}
+.hero-ctas{display:flex;gap:14px;opacity:0;animation:fup .8s .85s ease forwards}
+.btn-g{padding:13px 34px;background:var(--gold);color:var(--black);font-family:var(--sans);font-size:9.5px;font-weight:500;letter-spacing:3px;text-transform:uppercase;border:none;cursor:pointer;transition:transform .3s,box-shadow .3s,background .3s}
+.btn-g:hover{transform:translateY(-2px);box-shadow:0 14px 40px rgba(200,169,107,.28);background:var(--gold2)}
+.btn-o{padding:12px 34px;background:transparent;color:var(--text);font-family:var(--sans);font-size:9.5px;letter-spacing:3px;text-transform:uppercase;border:1px solid rgba(250,248,245,.2);cursor:pointer;transition:all .3s}
+.btn-o:hover{border-color:var(--gold);color:var(--gold)}
+.hero-vis{display:flex;align-items:center;justify-content:center;opacity:0;animation:fin 1.2s .3s ease forwards;position:relative}
+.orb{width:400px;height:400px;position:relative}
+.orb-ring{position:absolute;inset:0;border-radius:50%;border:1px solid rgba(200,169,107,.18);animation:spin1 14s linear infinite}
+.orb-ring2{position:absolute;inset:20px;border-radius:50%;border:1px dashed rgba(200,169,107,.09);animation:spin1 22s linear infinite reverse}
+.orb-glow{position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 40% 35%,rgba(200,169,107,.18) 0,transparent 65%)}
+.bottle-wrap{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;animation:float 7s ease-in-out infinite}
+.stat-pill{position:absolute;background:rgba(28,25,30,.85);backdrop-filter:blur(10px);border:1px solid var(--border);padding:13px 20px}
+.sp1{bottom:14%;left:-8%;animation:float2 8s ease-in-out infinite 1s}
+.sp2{top:18%;right:-10%;animation:float2 8s ease-in-out infinite 2.2s}
+.sp-n{font-family:var(--serif);font-size:26px;color:var(--gold)}
+.sp-l{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-top:2px}
+.hero-sc{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);z-index:4;display:flex;flex-direction:column;align-items:center;gap:7px;opacity:0;animation:fin 1s 1.6s ease forwards}
+.sc-line{width:1px;height:54px;background:linear-gradient(to bottom,var(--gold),transparent);animation:scpulse 2.1s ease-in-out infinite}
+.sc-t{font-size:8.5px;letter-spacing:3.5px;text-transform:uppercase;color:var(--dim)}
+
+@keyframes fup{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fin{from{opacity:0}to{opacity:1}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@keyframes float2{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes spin1{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+@keyframes scpulse{0%,100%{opacity:.3}50%{opacity:1}}
+
+/* ── MARQUEE ── */
+.mq{padding:18px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);overflow:hidden;background:rgba(22,18,24,.55)}
+.mq-inner{display:flex;animation:mscroll 22s linear infinite;white-space:nowrap}
+.mq-item{font-size:9.5px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);padding:0 36px;opacity:.55}
+@keyframes mscroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ── SECTION COMMON ── */
+.section{padding:108px 72px;max-width:1360px;margin:0 auto}
+.sec-eye{font-size:9.5px;letter-spacing:5px;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:14px}
+.sec-h{font-family:var(--serif);font-size:clamp(34px,4vw,58px);font-weight:300;line-height:1.08;margin-bottom:22px}
+.sec-h em{font-style:italic;color:var(--gold)}
+.sec-sub{font-size:13.5px;line-height:1.8;color:var(--muted);max-width:460px}
+
+/* ── PRODUCTS ── */
+#products-sec{background:var(--charcoal);padding:20px 0}
+.prod-wrap{max-width:1360px;margin:0 auto;padding:90px 72px}
+.prod-head{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:52px}
+.ftabs{display:flex;gap:3px;background:rgba(255,255,255,.03);padding:4px;border:1px solid var(--border)}
+.ftab{padding:8px 18px;font-size:9.5px;letter-spacing:2px;text-transform:uppercase;background:none;border:none;color:var(--muted);cursor:pointer;font-family:var(--sans);transition:all .25s}
+.ftab.on,.ftab:hover{background:var(--gold);color:var(--black)}
+.pgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px}
+.pcard{background:var(--surface);position:relative;overflow:hidden;cursor:pointer;transition:transform .4s cubic-bezier(.25,.46,.45,.94)}
+.pcard:hover{transform:translateY(-7px);z-index:2}
+.pcard:hover .pover{opacity:1}
+.pcard:hover .pimg-inner{transform:scale(1.07)}
+.pimg{height:290px;overflow:hidden;background:linear-gradient(140deg,#1c191e,#0f0d11);display:flex;align-items:center;justify-content:center;position:relative}
+.pimg-inner{font-size:68px;transition:transform .6s cubic-bezier(.25,.46,.45,.94);filter:drop-shadow(0 18px 38px rgba(0,0,0,.55))}
+.pbadge{position:absolute;top:14px;left:14px;font-size:8px;letter-spacing:2px;text-transform:uppercase;padding:4px 9px}
+.new-b{background:var(--gold);color:var(--black)}
+.best-b{border:1px solid var(--gold);color:var(--gold)}
+.pover{position:absolute;inset:0;background:rgba(9,8,10,.72);display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:22px;gap:7px;opacity:0;transition:opacity .3s}
+.qadd{width:100%;padding:11px;background:var(--gold);color:var(--black);border:none;font-family:var(--sans);font-size:9.5px;font-weight:500;letter-spacing:3px;text-transform:uppercase;cursor:pointer;transition:background .3s}
+.qadd:hover{background:var(--gold2)}
+.qview{width:100%;padding:9px;background:none;border:1px solid rgba(250,248,245,.25);color:var(--text);font-family:var(--sans);font-size:9.5px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all .3s}
+.qview:hover{border-color:var(--gold);color:var(--gold)}
+.pinfo{padding:18px}
+.pbrand{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:5px}
+.pname{font-family:var(--serif);font-size:17px;color:var(--text);margin-bottom:4px}
+.pdesc{font-size:11px;color:var(--muted);line-height:1.5;margin-bottom:11px}
+.pfoot{display:flex;align-items:center;justify-content:space-between}
+.pprice{font-family:var(--serif);font-size:19px;color:var(--text)}
+.pstars{color:var(--gold);font-size:10px;letter-spacing:1px}
+.swatches{display:flex;gap:5px;margin-bottom:10px}
+.sw{width:14px;height:14px;border-radius:50%;cursor:pointer;transition:transform .2s,box-shadow .2s;border:1.5px solid transparent}
+.sw:hover,.sw.on{transform:scale(1.35);border-color:var(--gold)}
+
+/* ── AI SECTION ── */
+#ai-sec{background:var(--black)}
+.ai-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:52px}
+.ai-card{background:var(--surface);padding:38px;position:relative;overflow:hidden;cursor:pointer;transition:background .3s}
+.ai-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,var(--gold),transparent);opacity:0;transition:opacity .3s}
+.ai-card:hover{background:var(--surface2)}
+.ai-card:hover::before{opacity:1}
+.ai-ico{width:46px;height:46px;border:1px solid rgba(200,169,107,.3);display:flex;align-items:center;justify-content:center;margin-bottom:22px;font-size:19px}
+.ai-t{font-family:var(--serif);font-size:21px;color:var(--text);margin-bottom:10px}
+.ai-d{font-size:12.5px;line-height:1.7;color:var(--muted)}
+.ai-link{display:inline-flex;align-items:center;gap:7px;margin-top:18px;font-size:9.5px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);background:none;border:none;cursor:pointer;font-family:var(--sans);transition:gap .3s}
+.ai-link:hover{gap:13px}
+
+/* ── SKIN ANALYSIS ── */
+#skin-sec{background:var(--charcoal)}
+.skin-grid{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
+.analysis-box{background:var(--surface);border:1px solid var(--border);padding:38px;position:relative}
+.analysis-box::before{content:'AI SKIN ANALYSIS';position:absolute;top:-1px;left:38px;background:var(--charcoal);padding:0 10px;font-size:8.5px;letter-spacing:3px;color:var(--gold);transform:translateY(-50%)}
+.upload-z{border:1px dashed rgba(200,169,107,.28);padding:44px 22px;text-align:center;cursor:pointer;transition:all .3s}
+.upload-z:hover{border-color:var(--gold);background:rgba(200,169,107,.03)}
+.up-ico{font-size:36px;margin-bottom:14px;opacity:.55}
+.up-t{font-family:var(--serif);font-size:19px;color:var(--text);margin-bottom:7px}
+.up-s{font-size:11.5px;color:var(--muted);margin-bottom:18px}
+.analysis-res{display:none;margin-top:22px}
+.score-ring{width:96px;height:96px;border-radius:50%;border:2px solid var(--gold);display:flex;flex-direction:column;align-items:center;justify-content:center;margin:0 auto 22px;background:radial-gradient(circle,rgba(200,169,107,.09),transparent)}
+.sn{font-family:var(--serif);font-size:30px;color:var(--gold)}
+.sl{font-size:8.5px;letter-spacing:2px;color:var(--muted);text-transform:uppercase}
+.metrics{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.metric{background:rgba(255,255,255,.03);padding:11px 14px;border-left:2px solid var(--gold)}
+.mn{font-size:9.5px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+.mb{height:2.5px;background:rgba(255,255,255,.07);border-radius:2px;overflow:hidden}
+.mf{height:100%;background:var(--gold);border-radius:2px;transition:width .9s ease}
+.mv{font-size:11.5px;color:var(--text);margin-top:5px}
+
+/* ── FRAGRANCE ── */
+#frag-sec{background:var(--black)}
+.frag-box{position:relative;height:480px;border:1px solid var(--border);background:radial-gradient(ellipse 55% 50% at 50% 50%,rgba(138,104,48,.11),transparent);display:flex;align-items:center;justify-content:center;overflow:hidden;margin-top:52px}
+#mol-cv{position:absolute;inset:0}
+.fnotes{display:flex;gap:2px;position:absolute;bottom:0;left:0;right:0}
+.fnote{flex:1;padding:22px;background:rgba(9,8,10,.82);border-top:2px solid;cursor:pointer;transition:background .3s}
+.fnote:hover{background:rgba(22,18,24,.9)}
+.fnote:nth-child(1){border-color:#f0c060}
+.fnote:nth-child(2){border-color:var(--gold)}
+.fnote:nth-child(3){border-color:#8a6830}
+.fnt{font-size:8.5px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+.fnn{font-family:var(--serif);font-size:17px;color:var(--text);margin-bottom:3px}
+.fnd{font-size:11px;color:var(--muted)}
+
+/* ── ECO ── */
+#eco-sec{background:var(--charcoal)}
+.eco-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:52px}
+.eco-card{background:var(--surface);padding:38px 30px}
+.en{font-family:var(--serif);font-size:46px;font-weight:300;color:var(--gold)}
+.eu{font-size:13px;color:var(--muted);padding-bottom:9px}
+.el{font-size:9.5px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+.ebar{height:2px;background:rgba(255,255,255,.06)}
+.efill{height:100%;background:linear-gradient(to right,var(--gold),#4a7c59);transition:width 1.1s ease}
+.eco-sub{font-size:11px;color:var(--muted);margin-top:11px}
+
+/* ── SMART MIRROR ── */
+#mirror-sec{background:var(--black)}
+.mirror-grid{display:grid;grid-template-columns:1fr 1fr;gap:36px;margin-top:52px;align-items:start}
+.mirror-frame{background:var(--surface);border:1px solid rgba(200,169,107,.18);padding:28px;position:relative}
+.mirror-frame::after{content:'';position:absolute;inset:10px;border:1px solid rgba(200,169,107,.06);pointer-events:none}
+.cam-view{width:100%;aspect-ratio:3/4;background:radial-gradient(ellipse at center,#1c191e,var(--surface));display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.face-oval{width:150px;height:195px;border-radius:50%;border:1px dashed rgba(200,169,107,.28);position:relative}
+#fdots{}
+.fdot{width:4px;height:4px;background:var(--gold);border-radius:50%;position:absolute;animation:dp 2s ease-in-out infinite}
+@keyframes dp{0%,100%{opacity:.4}50%{opacity:1}}
+.mir-inf{position:absolute;bottom:14px;left:14px;right:14px;background:rgba(9,8,10,.78);backdrop-filter:blur(7px);padding:10px 14px;font-size:11px;color:var(--gold);letter-spacing:.5px}
+.mir-features{display:flex;flex-direction:column;gap:2px}
+.mf-item{background:var(--surface);padding:18px 22px;display:flex;align-items:center;gap:14px;cursor:pointer;transition:all .25s;border-left:2px solid transparent}
+.mf-item:hover,.mf-item.on{background:var(--surface2);border-left-color:var(--gold)}
+.mfi-ico{font-size:19px;width:34px;text-align:center}
+.mfi-t{font-size:13.5px;color:var(--text);margin-bottom:2px}
+.mfi-d{font-size:11px;color:var(--muted)}
+.tog{width:38px;height:21px;background:rgba(255,255,255,.06);border-radius:11px;position:relative;margin-left:auto;cursor:pointer;transition:background .25s;flex-shrink:0}
+.tog.on{background:var(--gold)}
+.tog::after{content:'';position:absolute;top:3px;left:3px;width:15px;height:15px;background:var(--text);border-radius:50%;transition:transform .25s}
+.tog.on::after{transform:translateX(17px)}
+.shades{display:flex;gap:7px;padding:18px 22px;border-top:1px solid var(--border);flex-wrap:wrap}
+.shade{width:26px;height:26px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:all .2s}
+.shade:hover,.shade.on{border-color:var(--gold);transform:scale(1.2)}
+
+/* ── INGREDIENT ── */
+#ing-sec{background:var(--charcoal)}
+.ing-grid{display:grid;grid-template-columns:1fr 1fr;gap:36px;margin-top:52px;align-items:start}
+.ing-panel{background:var(--surface);border:1px solid var(--border);padding:30px}
+.ing-ta{width:100%;background:rgba(255,255,255,.03);border:1px solid var(--border);color:var(--text);font-family:var(--sans);font-size:12.5px;padding:14px;resize:vertical;min-height:140px;outline:none;line-height:1.65;transition:border-color .25s}
+.ing-ta:focus{border-color:rgba(200,169,107,.38)}
+.ing-ta::placeholder{color:var(--dim)}
+.ing-results{display:flex;flex-direction:column;gap:7px;margin-top:18px}
+.ing-item{padding:14px;background:rgba(255,255,255,.03);border-left:2px solid;display:flex;align-items:flex-start;gap:11px}
+.ing-item.good{border-color:#4a7c59}
+.ing-item.caution{border-color:var(--gold)}
+.ing-item.warn{border-color:#9e4030}
+.ing-name{font-size:12.5px;font-weight:400;color:var(--text);margin-bottom:3px}
+.ing-desc{font-size:11px;color:var(--muted);line-height:1.5}
+.ing-badge{font-size:8.5px;letter-spacing:1px;padding:2px 8px;border-radius:2px;font-weight:500;margin-left:auto;white-space:nowrap;flex-shrink:0}
+.good .ing-badge{background:rgba(74,124,89,.18);color:#8dcaa2}
+.caution .ing-badge{background:rgba(200,169,107,.14);color:var(--gold)}
+.warn .ing-badge{background:rgba(158,64,48,.18);color:#e07a60}
+.info-panel{display:flex;flex-direction:column;gap:18px}
+.info-card{background:var(--surface);border:1px solid var(--border);padding:28px}
+.ic-t{font-family:var(--serif);font-size:20px;color:var(--text);margin-bottom:12px}
+.ic-d{font-size:12.5px;color:var(--muted);line-height:1.75}
+.leg-row{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.leg-row:last-child{margin-bottom:0}
+.leg-sq{width:14px;height:14px;flex-shrink:0}
+
+/* ── GAMIFIED ── */
+#game-sec{background:var(--black)}
+.game-grid{display:grid;grid-template-columns:1fr 2fr;gap:36px;margin-top:52px;align-items:start}
+.level-card{background:var(--surface);border:1px solid var(--border);padding:28px;text-align:center}
+.lv-ring{width:116px;height:116px;position:relative;margin:0 auto 18px}
+.lv-ring svg{transform:rotate(-90deg)}
+.lv-txt{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)}
+.lv-n{font-family:var(--serif);font-size:34px;color:var(--gold)}
+.lv-l{font-size:8.5px;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
+.xpbar{height:2.5px;background:rgba(255,255,255,.06);margin:14px 0}
+.xpfill{height:100%;background:var(--gold)}
+.badges-g{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px}
+.badge-it{aspect-ratio:1;background:rgba(255,255,255,.03);border:1px solid var(--border);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;font-size:8.5px;letter-spacing:.5px;text-align:center;color:var(--muted);padding:7px;cursor:pointer;transition:all .3s}
+.badge-it:hover,.badge-it.earned{border-color:var(--gold);color:var(--gold);background:rgba(200,169,107,.05)}
+.badge-ico{font-size:22px}
+.challenges{display:flex;flex-direction:column;gap:2px}
+.ch{background:var(--surface);padding:18px 22px;display:flex;align-items:center;gap:14px;cursor:pointer;transition:all .25s;border-left:2px solid transparent}
+.ch:hover{background:var(--surface2);border-left-color:var(--gold)}
+.ch.done{border-left-color:var(--gold3);opacity:.65}
+.ch-ico{width:38px;height:38px;background:rgba(200,169,107,.09);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+.ch-t{font-size:13.5px;color:var(--text);margin-bottom:3px}
+.ch-d{font-size:11px;color:var(--muted)}
+.ch-r{font-family:var(--serif);font-size:17px;color:var(--gold);white-space:nowrap;margin-left:auto}
+
+/* ── FOOTER ── */
+footer{background:var(--charcoal);border-top:1px solid var(--border);padding:72px 72px 38px}
+.ft-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:52px;max-width:1360px;margin:0 auto}
+.ft-brand{font-family:var(--serif);font-size:26px;letter-spacing:6px;color:var(--gold);text-transform:uppercase;margin-bottom:14px}
+.ft-tag{font-size:12px;line-height:1.75;color:var(--muted);max-width:250px;margin-bottom:22px}
+.ft-socials{display:flex;gap:10px}
+.fts{width:34px;height:34px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--muted);cursor:pointer;transition:all .3s;text-decoration:none}
+.fts:hover{border-color:var(--gold);color:var(--gold)}
+.ft-col h4{font-size:9.5px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:18px}
+.ft-links{list-style:none;display:flex;flex-direction:column;gap:9px}
+.ft-links a{font-size:12.5px;color:var(--muted);text-decoration:none;transition:color .3s;cursor:pointer}
+.ft-links a:hover{color:var(--text)}
+.ft-bot{max-width:1360px;margin:52px auto 0;padding-top:22px;border-top:1px solid rgba(255,255,255,.05);display:flex;justify-content:space-between;align-items:center}
+.ft-legal{font-size:10.5px;color:var(--dim)}
+
+/* ── CHAT ── */
+#chat-wrap{position:fixed;bottom:28px;right:28px;z-index:800}
+.chat-bbl{width:54px;height:54px;background:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 8px 30px rgba(200,169,107,.38);transition:transform .3s,box-shadow .3s;font-size:21px}
+.chat-bbl:hover{transform:scale(1.08);box-shadow:0 12px 44px rgba(200,169,107,.48)}
+.chat-win{position:absolute;bottom:66px;right:0;width:370px;background:var(--surface);border:1px solid rgba(200,169,107,.18);display:none;flex-direction:column;max-height:510px;box-shadow:0 22px 70px rgba(0,0,0,.75)}
+.chat-win.open{display:flex}
+.chat-hd{padding:18px 22px;border-bottom:1px solid rgba(200,169,107,.1);display:flex;align-items:center;gap:11px}
+.chat-av{width:34px;height:34px;background:linear-gradient(135deg,var(--gold),var(--gold3));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px}
+.chat-nm{font-family:var(--serif);font-size:15px;color:var(--text)}
+.chat-st{font-size:9.5px;color:var(--gold);letter-spacing:1px}
+.chat-x{margin-left:auto;background:none;border:none;color:var(--muted);cursor:pointer;font-size:17px;transition:color .25s}
+.chat-x:hover{color:var(--text)}
+.chat-msgs{flex:1;overflow-y:auto;padding:18px;display:flex;flex-direction:column;gap:11px;scrollbar-width:thin;scrollbar-color:rgba(200,169,107,.18) transparent}
+.msg{max-width:82%;padding:11px 14px;font-size:12.5px;line-height:1.6}
+.msg-ai{background:rgba(255,255,255,.04);color:var(--text);border-radius:0 7px 7px 7px;align-self:flex-start}
+.msg-user{background:var(--gold);color:var(--black);border-radius:7px 0 7px 7px;align-self:flex-end}
+.typing{display:flex;gap:4px;align-items:center;padding:11px 14px;background:rgba(255,255,255,.04);align-self:flex-start;border-radius:0 7px 7px 7px}
+.td{width:5px;height:5px;background:var(--gold);border-radius:50%;animation:tb 1s ease-in-out infinite}
+.td:nth-child(2){animation-delay:.18s}.td:nth-child(3){animation-delay:.36s}
+@keyframes tb{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+.chat-chips{padding:7px 18px;display:flex;flex-wrap:wrap;gap:5px;border-top:1px solid rgba(200,169,107,.07)}
+.chip{padding:5px 11px;background:none;border:1px solid rgba(200,169,107,.18);color:var(--gold);font-size:10.5px;cursor:pointer;transition:all .2s;font-family:var(--sans);border-radius:18px}
+.chip:hover{background:rgba(200,169,107,.09)}
+.chat-inp-w{padding:14px 18px;border-top:1px solid rgba(200,169,107,.09);display:flex;gap:7px}
+.chat-inp{flex:1;background:rgba(255,255,255,.03);border:1px solid var(--border);color:var(--text);padding:9px 12px;font-family:var(--sans);font-size:12.5px;outline:none;transition:border-color .25s}
+.chat-inp:focus{border-color:rgba(200,169,107,.36)}
+.chat-inp::placeholder{color:var(--dim)}
+.chat-send{padding:9px 14px;background:var(--gold);border:none;color:var(--black);cursor:pointer;font-size:15px;transition:background .25s}
+.chat-send:hover{background:var(--gold2)}
+
+/* ── VOICE ── */
+#voice-btn{position:fixed;bottom:96px;right:28px;z-index:800;width:46px;height:46px;background:rgba(22,18,24,.88);border:1px solid rgba(200,169,107,.28);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:17px;transition:all .3s;backdrop-filter:blur(8px)}
+#voice-btn:hover{border-color:var(--gold);color:var(--gold)}
+#voice-btn.listening{background:rgba(200,169,107,.13);border-color:var(--gold);animation:vpulse 1.6s ease-in-out infinite}
+@keyframes vpulse{0%,100%{box-shadow:0 0 0 0 rgba(200,169,107,.3)}50%{box-shadow:0 0 0 11px rgba(200,169,107,0)}}
+
+/* ── TOAST ── */
+#toast{position:fixed;top:88px;right:28px;z-index:9000;background:var(--surface);border:1px solid rgba(200,169,107,.26);padding:14px 22px;display:flex;align-items:center;gap:10px;transform:translateX(120%);transition:transform .38s cubic-bezier(.25,.46,.45,.94);box-shadow:0 8px 28px rgba(0,0,0,.5);max-width:300px;pointer-events:none}
+#toast.show{transform:translateX(0)}
+#toast-ico{font-size:16px;color:var(--gold)}
+#toast-msg{font-size:12.5px;color:var(--text);line-height:1.4}
+
+/* ── MODAL ── */
+#modal-ov{position:fixed;inset:0;z-index:700;background:rgba(0,0,0,.82);backdrop-filter:blur(7px);display:none;align-items:center;justify-content:center;padding:18px}
+#modal-ov.open{display:flex;animation:fin .3s ease}
+.modal{background:var(--surface);border:1px solid rgba(200,169,107,.18);max-width:680px;width:100%;max-height:82vh;overflow-y:auto;position:relative}
+.modal-x{position:absolute;top:14px;right:14px;background:none;border:none;color:var(--muted);cursor:pointer;font-size:19px;z-index:1;transition:color .25s}
+.modal-x:hover{color:var(--text)}
+.modal-prod{display:grid;grid-template-columns:1fr 1fr}
+.modal-img{background:linear-gradient(140deg,#1c191e,var(--surface));display:flex;align-items:center;justify-content:center;min-height:340px;font-size:76px}
+.modal-det{padding:36px}
+.md-brand{font-size:8.5px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:7px}
+.md-name{font-family:var(--serif);font-size:26px;color:var(--text);margin-bottom:7px}
+.md-price{font-family:var(--serif);font-size:23px;color:var(--gold);margin-bottom:14px}
+.md-desc{font-size:12.5px;line-height:1.75;color:var(--muted);margin-bottom:18px}
+.md-add{width:100%;padding:13px;background:var(--gold);color:var(--black);border:none;font-family:var(--sans);font-size:9.5px;font-weight:500;letter-spacing:3px;text-transform:uppercase;cursor:pointer;transition:background .3s}
+.md-add:hover{background:var(--gold2)}
+.md-wish{width:100%;padding:11px;background:none;border:1px solid var(--border);color:var(--gold);font-family:var(--sans);font-size:9.5px;letter-spacing:3px;text-transform:uppercase;cursor:pointer;margin-top:7px;transition:all .3s}
+.md-wish:hover{border-color:var(--gold);background:rgba(200,169,107,.07)}
+
+/* ── REVEAL ── */
+.rev{opacity:0;transform:translateY(26px);transition:opacity .8s ease,transform .8s ease}
+.rev.vis{opacity:1;transform:none}
+.rev.d1{transition-delay:.14s}.rev.d2{transition-delay:.28s}.rev.d3{transition-delay:.42s}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  #nav{padding:0 22px}
+  .nav-links{display:none}
+  .hero-inner{grid-template-columns:1fr;padding:0 22px;text-align:center}
+  .hero-vis{display:none}
+  .hero-ctas{justify-content:center}
+  .section,.prod-wrap{padding:72px 22px}
+  .pgrid{grid-template-columns:1fr 1fr}
+  .ai-cards,.skin-grid,.mirror-grid,.ing-grid,.eco-grid,.game-grid{grid-template-columns:1fr}
+  footer{padding:52px 22px 28px}
+  .ft-grid{grid-template-columns:1fr 1fr;gap:36px}
+  .chat-win{width:calc(100vw - 44px);right:-14px}
+}
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-track{background:var(--black)}
+::-webkit-scrollbar-thumb{background:rgba(200,169,107,.25);border-radius:2px}
+</style>
+</head>
+<body>
+
+<div id="cur"></div>
+<div id="cur2"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a class="logo" href="#">Lumière</a>
+  <ul class="nav-links">
+    <li><a href="#products-sec">Collection</a></li>
+    <li><a href="#ai-sec">AI Beauty</a></li>
+    <li><a href="#frag-sec">Fragrance</a></li>
+    <li><a href="#eco-sec">Conscious</a></li>
+    <li><a href="#mirror-sec">Studio</a></li>
+  </ul>
+  <div class="nav-r">
+    <button class="nav-btn" onclick="toast('🔍','Search coming soon')">🔍</button>
+    <button class="nav-btn" onclick="toast('♡','Saved to wishlist')">♡</button>
+    <button class="nav-btn" id="cart-btn" onclick="openCart()">
+      🛒
+      <span class="cart-dot" id="cart-ct">0</span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <canvas id="ptcl"></canvas>
+  <div class="hero-inner">
+    <div class="hero-text">
+      <span class="hero-pre">Maison de Beauté · Est. 1924</span>
+      <h1 class="hero-h1">Discover<br><em>Luxury</em><br>Beauty</h1>
+      <p class="hero-sub">Where science meets artistry. Hyper-personalized formulations crafted for those who believe beauty is a philosophy.</p>
+      <div class="hero-ctas">
+        <button class="btn-g" onclick="scrollTo('products-sec')">Explore Collection</button>
+        <button class="btn-o" onclick="openChat()">AI Skincare</button>
+      </div>
+    </div>
+    <div class="hero-vis">
+      <div class="orb">
+        <div class="orb-ring"></div>
+        <div class="orb-ring2"></div>
+        <div class="orb-glow"></div>
+        <div class="bottle-wrap">
+          <svg width="110" height="228" viewBox="0 0 110 228" fill="none">
+            <defs>
+              <linearGradient id="bg" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="#7a5e2a" stop-opacity=".9"/>
+                <stop offset="38%" stop-color="#ddc88a" stop-opacity=".95"/>
+                <stop offset="68%" stop-color="#c8a96b" stop-opacity=".9"/>
+                <stop offset="100%" stop-color="#3e2c0e" stop-opacity=".85"/>
+              </linearGradient>
+              <linearGradient id="cg" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="#3e2c0e"/>
+                <stop offset="50%" stop-color="#7a5e2a"/>
+                <stop offset="100%" stop-color="#221808"/>
+              </linearGradient>
+            </defs>
+            <rect x="33" y="0" width="44" height="19" rx="4" fill="url(#cg)"/>
+            <rect x="39" y="17" width="32" height="13" rx="2" fill="url(#cg)" opacity=".82"/>
+            <rect x="18" y="30" width="74" height="175" rx="11" fill="url(#bg)"/>
+            <rect x="22" y="34" width="18" height="167" rx="5" fill="white" opacity=".055"/>
+            <rect x="20" y="142" width="70" height="1" fill="white" opacity=".14"/>
+            <rect x="28" y="158" width="54" height="28" rx="2" fill="white" opacity=".055"/>
+            <text x="55" y="178" text-anchor="middle" fill="rgba(9,8,10,.45)" font-size="7" letter-spacing="2.5" font-family="Georgia,serif">LUMIÈRE</text>
+          </svg>
+        </div>
+        <div class="stat-pill sp1">
+          <div class="sp-n">97%</div>
+          <div class="sp-l">Natural Origin</div>
+        </div>
+        <div class="stat-pill sp2">
+          <div class="sp-n">12K+</div>
+          <div class="sp-l">5-Star Reviews</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-sc">
+    <div class="sc-t">Scroll</div>
+    <div class="sc-line"></div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="mq"><div class="mq-inner" id="mq"></div></div>
+
+<!-- PRODUCTS -->
+<div id="products-sec">
+<div class="prod-wrap">
+  <div class="prod-head rev">
+    <div>
+      <span class="sec-eye">Our Collection</span>
+      <h2 class="sec-h" style="margin-bottom:0">Curated <em>Essentials</em></h2>
+    </div>
+    <div class="ftabs">
+      <button class="ftab on" onclick="filterP('all',this)">All</button>
+      <button class="ftab" onclick="filterP('skincare',this)">Skincare</button>
+      <button class="ftab" onclick="filterP('makeup',this)">Makeup</button>
+      <button class="ftab" onclick="filterP('fragrance',this)">Fragrance</button>
+    </div>
+  </div>
+  <div class="pgrid" id="pgrid"></div>
+</div>
+</div>
+
+<!-- AI SECTION -->
+<div id="ai-sec" style="background:var(--black);padding:20px 0">
+<div class="section">
+  <div class="rev">
+    <span class="sec-eye">Intelligence Meets Beauty</span>
+    <h2 class="sec-h">AI-Powered <em>Beauty</em></h2>
+    <p class="sec-sub">Our proprietary AI analyzes your unique profile to deliver hyper-personalized recommendations.</p>
+  </div>
+  <div class="ai-cards">
+    <div class="ai-card rev" onclick="openChat()">
+      <div class="ai-ico">✨</div>
+      <div class="ai-t">Beauty Assistant</div>
+      <div class="ai-d">Conversational AI that understands your skin concerns and crafts personalized routines with specific product picks.</div>
+      <button class="ai-link">Chat Now →</button>
+    </div>
+    <div class="ai-card rev d1" onclick="scrollTo('skin-sec')">
+      <div class="ai-ico">🔬</div>
+      <div class="ai-t">Skin Analysis</div>
+      <div class="ai-d">Upload a selfie and receive a comprehensive AI skin assessment with a personalized treatment roadmap.</div>
+      <button class="ai-link">Analyze Skin →</button>
+    </div>
+    <div class="ai-card rev d2" onclick="scrollTo('mirror-sec')">
+      <div class="ai-ico">🪞</div>
+      <div class="ai-t">Virtual Try-On</div>
+      <div class="ai-d">AR-powered beauty studio. Preview lipstick, foundation, and eyeshadow in real-time on your face.</div>
+      <button class="ai-link">Try Now →</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- SKIN ANALYSIS -->
+<div id="skin-sec" style="background:var(--charcoal);padding:20px 0">
+<div class="section">
+  <div class="skin-grid">
+    <div class="rev">
+      <span class="sec-eye">AI Diagnostics</span>
+      <h2 class="sec-h">Your Skin,<br><em>Decoded</em></h2>
+      <p class="sec-sub">Our AI detects skin type, texture, hydration levels, and visible concerns to craft your perfect routine.</p>
+      <div style="margin-top:28px;display:flex;flex-direction:column;gap:10px">
+        <div style="display:flex;align-items:center;gap:11px;font-size:12.5px;color:var(--muted)"><span style="color:var(--gold)">✓</span> Skin type &amp; texture analysis</div>
+        <div style="display:flex;align-items:center;gap:11px;font-size:12.5px;color:var(--muted)"><span style="color:var(--gold)">✓</span> Hydration &amp; oil level detection</div>
+        <div style="display:flex;align-items:center;gap:11px;font-size:12.5px;color:var(--muted)"><span style="color:var(--gold)">✓</span> Personalized product matching</div>
+        <div style="display:flex;align-items:center;gap:11px;font-size:12.5px;color:var(--muted)"><span style="color:var(--gold)">✓</span> Estimated skin age prediction</div>
+      </div>
+    </div>
+    <div class="analysis-box rev">
+      <div class="upload-z" id="upz" onclick="runAnalysis()">
+        <div class="up-ico">📸</div>
+        <div class="up-t">Upload Your Selfie</div>
+        <div class="up-s">AI analysis takes under 10 seconds</div>
+        <button class="btn-g" style="pointer-events:none">Begin Analysis</button>
+      </div>
+      <div class="analysis-res" id="ares">
+        <div class="score-ring">
+          <div class="sn">84</div>
+          <div class="sl">Skin Score</div>
+        </div>
+        <div class="metrics" id="skin-metrics"></div>
+        <div style="margin-top:18px;padding:14px;background:rgba(200,169,107,.04);border:1px solid rgba(200,169,107,.13)">
+          <div style="font-size:9.5px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:7px">AI Recommendation</div>
+          <div style="font-size:12.5px;color:var(--muted);line-height:1.65">Based on your analysis, we recommend our <strong style="color:var(--text)">Hydra-Luminance Serum</strong> paired with the <strong style="color:var(--text)">Velvet Moisture Barrier Cream</strong> for optimal results.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- FRAGRANCE VISUALIZER -->
+<div id="frag-sec" style="background:var(--black);padding:20px 0">
+<div class="section">
+  <div class="rev">
+    <span class="sec-eye">Olfactory Journey</span>
+    <h2 class="sec-h">Fragrance <em>Visualized</em></h2>
+    <p class="sec-sub">An immersive molecular visualization of our signature scents — experience the dance of fragrance notes.</p>
+  </div>
+  <div class="frag-box rev">
+    <canvas id="mol-cv"></canvas>
+    <div class="fnotes">
+      <div class="fnote" onclick="toast('🍋','Bergamot & Neroli — Fresh citrus opening')">
+        <div class="fnt">Top Notes</div>
+        <div class="fnn">Bergamot &amp; Neroli</div>
+        <div class="fnd">Effervescent citrus opening</div>
+      </div>
+      <div class="fnote" onclick="toast('🌹','Jasmine & Rose — Romantic floral heart')">
+        <div class="fnt">Heart Notes</div>
+        <div class="fnn">Jasmine &amp; Rose</div>
+        <div class="fnd">Floral romantic core</div>
+      </div>
+      <div class="fnote" onclick="toast('🌲','Sandalwood & Musk — Warm sensual base')">
+        <div class="fnt">Base Notes</div>
+        <div class="fnn">Sandalwood &amp; Musk</div>
+        <div class="fnd">Warm sensual foundation</div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ECO IMPACT -->
+<div id="eco-sec" style="background:var(--charcoal);padding:20px 0">
+<div class="section">
+  <div class="rev">
+    <span class="sec-eye">Conscious Beauty</span>
+    <h2 class="sec-h">Our <em>Commitment</em></h2>
+    <p class="sec-sub">Transparency in every formula. We measure and publish the environmental impact of each product we make.</p>
+  </div>
+  <div class="eco-grid">
+    <div class="eco-card rev">
+      <div style="display:flex;align-items:flex-end;gap:4px;margin-bottom:7px">
+        <span class="en">2.1</span><span class="eu">kg CO₂</span>
+      </div>
+      <div class="el">Carbon per product</div>
+      <div class="ebar"><div class="efill" style="width:21%"></div></div>
+      <div class="eco-sub">73% below industry average</div>
+    </div>
+    <div class="eco-card rev d1">
+      <div style="display:flex;align-items:flex-end;gap:4px;margin-bottom:7px">
+        <span class="en">94</span><span class="eu">%</span>
+      </div>
+      <div class="el">Recycled packaging</div>
+      <div class="ebar"><div class="efill" style="width:94%"></div></div>
+      <div class="eco-sub">FSC certified materials only</div>
+    </div>
+    <div class="eco-card rev d2">
+      <div style="display:flex;align-items:flex-end;gap:4px;margin-bottom:7px">
+        <span class="en">100</span><span class="eu">%</span>
+      </div>
+      <div class="el">Cruelty-free certified</div>
+      <div class="ebar"><div class="efill" style="width:100%"></div></div>
+      <div class="eco-sub">Leaping Bunny approved since 2019</div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- SMART MIRROR -->
+<div id="mirror-sec" style="background:var(--black);padding:20px 0">
+<div class="section">
+  <div class="rev">
+    <span class="sec-eye">AR Beauty Studio</span>
+    <h2 class="sec-h">Smart <em>Mirror</em></h2>
+    <p class="sec-sub">Your virtual makeup artist — preview shades, analyze skin, discover your perfect look in real time.</p>
+  </div>
+  <div class="mirror-grid">
+    <div class="mirror-frame rev">
+      <div class="cam-view" id="cam-view">
+        <div class="face-oval"><div id="fdots"></div></div>
+        <div class="mir-inf" id="mir-inf">Scanning face geometry…</div>
+      </div>
+    </div>
+    <div class="rev d1">
+      <div class="mir-features" id="mir-features"></div>
+      <div class="shades" id="shade-row"></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- INGREDIENT ANALYZER -->
+<div id="ing-sec" style="background:var(--charcoal);padding:20px 0">
+<div class="section">
+  <div class="rev">
+    <span class="sec-eye">Formula Intelligence</span>
+    <h2 class="sec-h">Ingredient <em>Analyzer</em></h2>
+    <p class="sec-sub">Paste any INCI list. Our AI decodes every compound, flags conflicts, and rates safety for your skin type.</p>
+  </div>
+  <div class="ing-grid">
+    <div class="ing-panel rev">
+      <div style="font-size:9.5px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:10px">Paste Ingredients</div>
+      <textarea class="ing-ta" id="ing-ta">Aqua, Glycerin, Niacinamide, Retinol, Hyaluronic Acid, Fragrance, Alcohol Denat</textarea>
+      <button class="btn-g" style="margin-top:14px;width:100%" onclick="analyzeIng()">Analyze Formula</button>
+      <div class="ing-results" id="ing-res"></div>
+    </div>
+    <div class="info-panel rev d1">
+      <div class="info-card">
+        <div class="ic-t">Safety Legend</div>
+        <div class="leg-row"><div class="leg-sq" style="background:#4a7c59"></div><div class="ic-d" style="font-size:12.5px">Beneficial — proven efficacy</div></div>
+        <div class="leg-row"><div class="leg-sq" style="background:var(--gold)"></div><div class="ic-d" style="font-size:12.5px">Use with care — patch test advised</div></div>
+        <div class="leg-row"><div class="leg-sq" style="background:#9e4030"></div><div class="ic-d" style="font-size:12.5px">Potential irritant or allergen</div></div>
+      </div>
+      <div class="info-card">
+        <div class="ic-t">Did You Know?</div>
+        <div class="ic-d">Niacinamide (Vitamin B3) is one of the most versatile skincare ingredients — it minimizes pores, fades dark spots, strengthens the skin barrier, and reduces inflammation. Safe for all skin types.</div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- GAMIFIED -->
+<div id="game-sec" style="background:var(--black);padding:20px 0">
+<div class="section">
+  <div class="rev">
+    <span class="sec-eye">Beauty Journey</span>
+    <h2 class="sec-h">Your <em>Progress</em></h2>
+    <p class="sec-sub">Track your skincare journey, earn rewards, and unlock exclusive perks as you advance.</p>
+  </div>
+  <div class="game-grid">
+    <div class="level-card rev">
+      <div class="lv-ring">
+        <svg viewBox="0 0 116 116" width="116" height="116">
+          <circle cx="58" cy="58" r="48" fill="none" stroke="rgba(200,169,107,.1)" stroke-width="4"/>
+          <circle cx="58" cy="58" r="48" fill="none" stroke="var(--gold)" stroke-width="4" stroke-dasharray="302" stroke-dashoffset="90" stroke-linecap="round"/>
+        </svg>
+        <div class="lv-txt">
+          <div class="lv-n">7</div>
+          <div class="lv-l">Level</div>
+        </div>
+      </div>
+      <div style="font-family:var(--serif);font-size:17px;color:var(--text);margin-bottom:3px">Beauty Adept</div>
+      <div style="font-size:11px;color:var(--muted)">2,340 / 3,000 XP</div>
+      <div class="xpbar"><div class="xpfill" style="width:78%"></div></div>
+      <div style="font-size:9.5px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);text-align:center;margin-bottom:13px">Badges Earned</div>
+      <div class="badges-g" id="badges-g"></div>
+    </div>
+    <div class="challenges" id="challenges"></div>
+  </div>
+</div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft-grid">
+    <div>
+      <div class="ft-brand">Lumière</div>
+      <div class="ft-tag">Luxury beauty reimagined through science, nature, and artistry. For those who believe beauty is a philosophy.</div>
+      <div class="ft-socials">
+        <a class="fts">𝕏</a><a class="fts">𝔽</a><a class="fts">📷</a><a class="fts">▶</a>
+      </div>
+    </div>
+    <div class="ft-col">
+      <h4>Collection</h4>
+      <ul class="ft-links"><li><a>Skincare</a></li><li><a>Makeup</a></li><li><a>Fragrance</a></li><li><a>Hair Care</a></li><li><a>Gift Sets</a></li></ul>
+    </div>
+    <div class="ft-col">
+      <h4>Beauty AI</h4>
+      <ul class="ft-links"><li><a>Skin Analysis</a></li><li><a>Virtual Try-On</a></li><li><a>Beauty Chat</a></li><li><a>Ingredient Analyzer</a></li><li><a>Smart Mirror</a></li></ul>
+    </div>
+    <div class="ft-col">
+      <h4>Maison</h4>
+      <ul class="ft-links"><li><a>Our Story</a></li><li><a>Sustainability</a></li><li><a>Beauty Journal</a></li><li><a>Consultations</a></li><li><a>Loyalty Program</a></li></ul>
+    </div>
+  </div>
+  <div class="ft-bot">
+    <div class="ft-legal">© 2024 Lumière Beauté. All rights reserved.</div>
+    <div style="display:flex;gap:22px">
+      <a class="ft-legal" style="cursor:pointer;text-decoration:none">Privacy</a>
+      <a class="ft-legal" style="cursor:pointer;text-decoration:none">Terms</a>
+      <a class="ft-legal" style="cursor:pointer;text-decoration:none">Cookies</a>
+    </div>
+  </div>
+</footer>
+
+<!-- CHAT -->
+<div id="chat-wrap">
+  <div class="chat-win" id="chat-win">
+    <div class="chat-hd">
+      <div class="chat-av">✨</div>
+      <div><div class="chat-nm">Lumière AI</div><div class="chat-st">● Online · Beauty Expert</div></div>
+      <button class="chat-x" onclick="closeChat()">✕</button>
+    </div>
+    <div class="chat-msgs" id="chat-msgs"></div>
+    <div class="chat-chips" id="chat-chips"></div>
+    <div class="chat-inp-w">
+      <input class="chat-inp" id="chat-inp" placeholder="Ask about skincare, makeup…" onkeydown="if(event.key==='Enter')sendMsg()">
+      <button class="chat-send" onclick="sendMsg()">→</button>
+    </div>
+  </div>
+  <div class="chat-bbl" onclick="toggleChat()">✨</div>
+</div>
+
+<button id="voice-btn" onclick="toggleVoice()" title="Voice Assistant">🎙</button>
+
+<!-- TOAST -->
+<div id="toast"><span id="toast-ico">✓</span><span id="toast-msg"></span></div>
+
+<!-- MODAL -->
+<div id="modal-ov" onclick="if(event.target===this)closeModal()">
+  <div class="modal" id="modal"></div>
+</div>
+
+<script>
+/* ── DATA ── */
+const PRODUCTS = [
+  {id:1,cat:'skincare',name:'Hydra-Luminance Serum',brand:'Lumière',desc:'Intensive hydration with 10% Hyaluronic Acid complex',price:'$185',stars:5,badge:'Best Seller',e:'💎',colors:['#f0e8d8','#e8c5a0','#d4a0c0']},
+  {id:2,cat:'skincare',name:'Velvet Moisture Barrier',brand:'Lumière',desc:'Ceramide-rich cream for ultimate skin protection',price:'$145',stars:5,badge:'New',e:'🫧',colors:['#fff','#f5f0e8','#e8e0d0']},
+  {id:3,cat:'makeup',name:'Satin Lip Elixir',brand:'Lumière',desc:'Buildable colour with long-lasting hydration',price:'$68',stars:4,badge:'',e:'💄',colors:['#8B0000','#c45c6a','#d4908a']},
+  {id:4,cat:'fragrance',name:'Noir de Lumière',brand:'Lumière',desc:'An ode to midnight — jasmine, oud, white musk',price:'$320',stars:5,badge:'Exclusive',e:'🖤',colors:['#2c1a2e','#4a2040','#6b3060']},
+  {id:5,cat:'skincare',name:'Retinol Renewal Elixir',brand:'Lumière',desc:'0.3% encapsulated retinol for gentle efficacy',price:'$210',stars:5,badge:'',e:'⚗️',colors:['#fff8e8','#f0e4c0','#e8d090']},
+  {id:6,cat:'makeup',name:'Luminous Foundation',brand:'Lumière',desc:'Skin-like finish with SPF 30 protection',price:'$98',stars:4,badge:'',e:'🌟',colors:['#f5e8d8','#e8d0b8','#d4b898']},
+  {id:7,cat:'fragrance',name:'Blanc Absolu',brand:'Lumière',desc:'White florals over cedar and warm amber',price:'$280',stars:5,badge:'New',e:'🤍',colors:['#fff','#f8f0e4','#f0e4cc']},
+  {id:8,cat:'skincare',name:'Vitamin C Radiance Cream',brand:'Lumière',desc:'15% stabilized Vitamin C for visible glow',price:'$165',stars:4,badge:'',e:'🌿',colors:['#fff0c8','#f8e090','#e8c840']},
+];
+
+const BADGES = [
+  {ico:'🌟',name:'First Buy',earned:true},{ico:'🔬',name:'Skin Scan',earned:true},
+  {ico:'💎',name:'Luxury Tier',earned:true},{ico:'🌿',name:'Eco Warrior',earned:true},
+  {ico:'✨',name:'7-Day Streak',earned:false},{ico:'👑',name:'Elite',earned:false},
+  {ico:'🎯',name:'Ing. Pro',earned:false},{ico:'💄',name:'Try-On Fan',earned:false},
+];
+const CHALLENGES = [
+  {ico:'🌅',t:'Morning Routine',d:'Complete 7 days in a row',r:'+250 XP',done:false},
+  {ico:'🔬',t:'Skin Scan',d:'Complete your first AI skin analysis',r:'+500 XP',done:true},
+  {ico:'🌿',t:'Go Green',d:'Add 3 eco-certified products',r:'+300 XP',done:false},
+  {ico:'💬',t:'Community Voice',d:'Share your routine',r:'+200 XP',done:false},
+  {ico:'✨',t:'Ingredient Expert',d:'Analyze 5 product formulas',r:'+400 XP',done:false},
+];
+const MIR_FEATURES = [
+  {ico:'💄',t:'Lip Color Try-On',d:'Preview 50+ shades'},
+  {ico:'🎨',t:'Foundation Match',d:'AI-matched to your skin tone'},
+  {ico:'👁',t:'Eye Shadow',d:'Preview palettes on your lids'},
+  {ico:'🔬',t:'Skin Analysis',d:'Real-time condition monitor'},
+];
+const SHADES = ['#8B0000','#c45c6a','#d4908a','#704214','#2c1a2e'];
+const ING_DB = {
+  'aqua':{name:'Water (Aqua)',desc:'Universal solvent. Base of most formulas. Hydrates and dissolves other ingredients.',s:'good'},
+  'glycerin':{name:'Glycerin',desc:'Powerful humectant that draws moisture into skin. Suitable for all skin types.',s:'good'},
+  'niacinamide':{name:'Niacinamide (Vitamin B3)',desc:'Multitasking ingredient. Minimizes pores, evens tone, strengthens barrier.',s:'good'},
+  'retinol':{name:'Retinol',desc:'Gold-standard anti-aging. Stimulates collagen, increases cell turnover. Start low.',s:'caution'},
+  'hyaluronic acid':{name:'Hyaluronic Acid',desc:'Holds 1000× its weight in water. Plumps and hydrates without heaviness.',s:'good'},
+  'fragrance':{name:'Fragrance / Parfum',desc:'Undisclosed blend. Common sensitizer — may cause reactions in sensitive skin.',s:'warn'},
+  'alcohol denat':{name:'Alcohol Denat.',desc:'Fast-drying solvent. Can disrupt skin barrier with frequent use.',s:'warn'},
+};
+const CHAT_RESPONSES = {
+  oily:'For oily skin, I recommend our Niacinamide Pore Refiner Serum in the morning + Oil-Free Hydration Gel. Evening: Retinol Renewal Elixir to control sebum overnight. Stick to gel-based formulas.',
+  dry:'Dry skin craves intense hydration. Start with our Hyaluronic Acid Plumping Essence, then Velvet Moisture Barrier Cream. Layer Squalane Face Oil at night. Transformed in one week.',
+  'anti-aging':'Morning: Vitamin C Radiance Serum + SPF 50. Evening: Retinol Renewal Elixir + Peptide Night Cream. This combination addresses fine lines, texture, and firmness simultaneously.',
+  acne:'For acne-prone skin: Salicylic Acid Clarifying Cleanser, Niacinamide Serum to reduce inflammation, lightweight Oil-Free Moisturizer. Avoid heavy occlusives.',
+  sensitive:'Gentle is key. Our Cica Barrier Repair Cream, fragrance-free Hydra Serum, and mineral SPF are safe bets. Patch test everything. The Lumière Calming Collection was made for reactive skin.',
+};
+
+/* ── CART ── */
+let cart = [], chatOpen = false, voiceOn = false;
+
+function addCart(name, price) {
+  cart.push({name, price});
+  document.getElementById('cart-ct').textContent = cart.length;
+  toast('🛍', `${name} added to bag`);
+}
+
+function openCart() {
+  if (!cart.length) { toast('🛒','Your bag is empty'); return; }
+  const total = cart.reduce((s,i)=>s+parseFloat(i.price.replace('$','')),0);
+  document.getElementById('modal').innerHTML = `
+    <button class="modal-x" onclick="closeModal()">✕</button>
+    <div style="padding:36px">
+      <div style="font-family:var(--serif);font-size:26px;color:var(--text);margin-bottom:7px;letter-spacing:1px">Your Bag</div>
+      <div style="font-size:10.5px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:28px">${cart.length} item${cart.length!==1?'s':''}</div>
+      ${cart.map(i=>`<div style="display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:13.5px"><span style="color:var(--text)">${i.name}</span><span style="color:var(--gold);font-family:var(--serif)">${i.price}</span></div>`).join('')}
+      <div style="display:flex;justify-content:space-between;padding:18px 0;font-family:var(--serif);font-size:21px"><span>Total</span><span style="color:var(--gold)">$${total.toFixed(0)}</span></div>
+      <button class="btn-g" style="width:100%;margin-top:7px" onclick="toast('✓','Order placed! Thank you.');cart=[];document.getElementById('cart-ct').textContent=0;closeModal()">Proceed to Checkout</button>
+    </div>`;
+  document.getElementById('modal-ov').classList.add('open');
+}
+function closeModal(){ document.getElementById('modal-ov').classList.remove('open'); }
+
+/* ── PRODUCTS ── */
+function renderProducts(filter='all') {
+  const list = filter==='all' ? PRODUCTS : PRODUCTS.filter(p=>p.cat===filter);
+  document.getElementById('pgrid').innerHTML = list.map(p=>`
+    <div class="pcard" data-cat="${p.cat}">
+      <div class="pimg">
+        <div class="pimg-inner">${p.e}</div>
+        ${p.badge?`<div class="pbadge ${p.badge==='New'?'new-b':'best-b'}">${p.badge}</div>`:''}
+        <div class="pover">
+          <button class="qadd" onclick="event.stopPropagation();addCart('${p.name}','${p.price}')">Add to Bag</button>
+          <button class="qview" onclick="event.stopPropagation();openProd(${p.id})">Quick View</button>
+        </div>
+      </div>
+      <div class="pinfo">
+        <div class="pbrand">${p.brand}</div>
+        <div class="pname">${p.name}</div>
+        <div class="pdesc">${p.desc}</div>
+        <div class="swatches">${p.colors.map((c,i)=>`<div class="sw ${i===0?'on':''}" style="background:${c}"></div>`).join('')}</div>
+        <div class="pfoot">
+          <div class="pprice">${p.price}</div>
+          <div class="pstars">${'★'.repeat(p.stars)}${'☆'.repeat(5-p.stars)}</div>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+function filterP(f, btn) {
+  document.querySelectorAll('.ftab').forEach(t=>t.classList.remove('on'));
+  btn.classList.add('on');
+  renderProducts(f);
+}
+
+function openProd(id) {
+  const p = PRODUCTS.find(x=>x.id===id);
+  document.getElementById('modal').innerHTML = `
+    <button class="modal-x" onclick="closeModal()">✕</button>
+    <div class="modal-prod">
+      <div class="modal-img">${p.e}</div>
+      <div class="modal-det">
+        <div class="md-brand">${p.brand}</div>
+        <div class="md-name">${p.name}</div>
+        <div class="md-price">${p.price}</div>
+        <div class="md-desc">${p.desc}. Formulated with precision for visible results within 4 weeks. Dermatologically tested and allergy-screened.</div>
+        <div style="display:flex;gap:6px;margin-bottom:18px">${p.colors.map(c=>`<div style="width:22px;height:22px;border-radius:50%;background:${c};cursor:pointer;border:1.5px solid transparent;transition:all .2s" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='transparent'"></div>`).join('')}</div>
+        <div style="margin-bottom:18px;font-size:11.5px;color:var(--muted);line-height:1.85">✓ Clinically proven formulation<br>✓ Suitable for sensitive skin<br>✓ Visible results in 28 days</div>
+        <button class="md-add" onclick="addCart('${p.name}','${p.price}');closeModal()">Add to Bag — ${p.price}</button>
+        <button class="md-wish" onclick="toast('♡','Saved to Wishlist')">Save to Wishlist</button>
+      </div>
+    </div>`;
+  document.getElementById('modal-ov').classList.add('open');
+}
+
+/* ── SKIN ANALYSIS ── */
+function runAnalysis() {
+  const z = document.getElementById('upz');
+  z.innerHTML = '<div style="font-size:30px;animation:float 1s ease-in-out infinite">🔬</div><div style="font-family:var(--serif);font-size:18px;color:var(--text);margin-top:12px">Analyzing skin profile…</div><div style="font-size:11.5px;color:var(--gold);margin-top:7px">AI processing in progress</div>';
+  setTimeout(()=>{
+    z.style.display='none';
+    const ar = document.getElementById('ares');
+    ar.style.display='block';
+    const mets=[
+      {n:'Hydration Level',v:72,l:'Well Hydrated'},{n:'Oil Balance',v:45,l:'Combination'},
+      {n:'Radiance',v:68,l:'Good Glow'},{n:'Skin Texture',v:80,l:'Smooth'},
+      {n:'Barrier Health',v:85,l:'Strong'},{n:'Skin Age',v:60,l:'28 est.'},
+    ];
+    document.getElementById('skin-metrics').innerHTML = mets.map(m=>`
+      <div class="metric">
+        <div class="mn">${m.n}</div>
+        <div class="mb"><div class="mf" style="width:${m.v}%"></div></div>
+        <div class="mv">${m.l}</div>
+      </div>`).join('');
+    toast('🔬','Skin analysis complete!');
+  }, 1900);
+}
+
+/* ── INGREDIENTS ── */
+function analyzeIng() {
+  const text = document.getElementById('ing-ta').value;
+  const items = text.split(',').map(s=>s.trim().toLowerCase());
+  const res = document.getElementById('ing-res');
+  res.style.display='flex'; res.style.flexDirection='column'; res.style.gap='7px';
+  res.innerHTML = items.map(item=>{
+    const found = Object.entries(ING_DB).find(([k])=>item.includes(k));
+    if(found){
+      const d=found[1];
+      return `<div class="ing-item ${d.s}"><div style="flex:1"><div class="ing-name">${d.name}</div><div class="ing-desc">${d.desc}</div></div><div class="ing-badge">${d.s==='good'?'Safe':d.s==='caution'?'Caution':'Warning'}</div></div>`;
+    }
+    return `<div class="ing-item caution"><div style="flex:1"><div class="ing-name">${item.charAt(0).toUpperCase()+item.slice(1)}</div><div class="ing-desc">No detailed info found. Consult a dermatologist if unsure.</div></div><div class="ing-badge">Unknown</div></div>`;
+  }).join('');
+}
+
+/* ── MIRROR ── */
+function renderMirror() {
+  document.getElementById('mir-features').innerHTML = MIR_FEATURES.map((f,i)=>`
+    <div class="mf-item ${i===0?'on':''}" onclick="activateMf(this,'${f.t}')">
+      <div class="mfi-ico">${f.ico}</div>
+      <div style="flex:1"><div class="mfi-t">${f.t}</div><div class="mfi-d">${f.d}</div></div>
+      <div class="tog ${i===0?'on':''}"></div>
+    </div>`).join('');
+  document.getElementById('shade-row').innerHTML = `<div style="font-size:9.5px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);width:100%;margin-bottom:6px">Lip Shade</div>` +
+    SHADES.map((c,i)=>`<div class="shade ${i===0?'on':''}" style="background:${c}" onclick="pickShade(this,'${c}')"></div>`).join('');
+  const fd = document.getElementById('fdots');
+  const pts=[[50,5],[80,15],[95,35],[95,55],[80,75],[50,90],[20,75],[5,55],[5,35],[20,15],[50,25],[50,60]];
+  fd.innerHTML=pts.map((p,i)=>`<div class="fdot" style="left:${p[0]}%;top:${p[1]}%;animation-delay:${i*.14}s"></div>`).join('');
+}
+function activateMf(el, t) {
+  document.querySelectorAll('.mf-item').forEach(f=>{f.classList.remove('on');f.querySelector('.tog').classList.remove('on');});
+  el.classList.add('on'); el.querySelector('.tog').classList.add('on');
+  document.getElementById('mir-inf').textContent = `${t} active`;
+}
+function pickShade(el, c) {
+  document.querySelectorAll('.shade').forEach(s=>s.classList.remove('on'));
+  el.classList.add('on');
+  document.getElementById('cam-view').style.background=`radial-gradient(ellipse at 58% 72%,${c}55,transparent 45%),radial-gradient(ellipse at center,#1c191e,var(--surface))`;
+  document.getElementById('mir-inf').textContent=`Shade preview active`;
+}
+
+/* ── BADGES & CHALLENGES ── */
+function renderBadges() {
+  document.getElementById('badges-g').innerHTML = BADGES.map(b=>`
+    <div class="badge-it ${b.earned?'earned':''}">
+      <div class="badge-ico">${b.ico}</div><div>${b.name}</div>
+    </div>`).join('');
+}
+function renderChallenges() {
+  document.getElementById('challenges').innerHTML = CHALLENGES.map(c=>`
+    <div class="ch ${c.done?'done':''}" onclick="completeChallenge(this,'${c.t}','${c.r}')">
+      <div class="ch-ico">${c.ico}</div>
+      <div style="flex:1"><div class="ch-t">${c.t}${c.done?' ✓':''}</div><div class="ch-d">${c.d}</div></div>
+      <div class="ch-r">${c.r}</div>
+    </div>`).join('');
+}
+function completeChallenge(el,t,r) {
+  if(!el.classList.contains('done')){ el.classList.add('done'); toast('🏆',`Challenge complete! ${r} for "${t}"`); }
+}
+
+/* ── MARQUEE ── */
+function buildMarquee() {
+  const items=['✦ Luxury Skincare','✦ AI Beauty','✦ Natural Formulas','✦ Cruelty Free','✦ Sustainable','✦ 97% Natural Origin','✦ Dermatologist Tested','✦ Award Winning'];
+  const all = [...items,...items];
+  document.getElementById('mq').innerHTML = all.map(i=>`<span class="mq-item">${i}</span>`).join('');
+}
+
+/* ── MOLECULE CANVAS ── */
+function initMol() {
+  const cv = document.getElementById('mol-cv');
+  if(!cv) return;
+  const ctx = cv.getContext('2d');
+  const resize = ()=>{ cv.width=cv.offsetWidth; cv.height=cv.offsetHeight; };
+  resize();
+  const mols = Array.from({length:55},()=>({
+    x:Math.random()*cv.width, y:Math.random()*cv.height,
+    r:Math.random()*3.5+1.5, vx:(Math.random()-.5)*.8, vy:(Math.random()-.5)*.8,
+    a:Math.random()*.55+.15
+  }));
+  function draw(){
+    ctx.clearRect(0,0,cv.width,cv.height);
+    mols.forEach((m,i)=>{
+      m.x+=m.vx; m.y+=m.vy;
+      if(m.x<0||m.x>cv.width) m.vx*=-1;
+      if(m.y<0||m.y>cv.height) m.vy*=-1;
+      ctx.beginPath(); ctx.arc(m.x,m.y,m.r,0,Math.PI*2);
+      ctx.fillStyle=`rgba(200,169,107,${m.a})`; ctx.fill();
+      mols.slice(i+1).forEach(n=>{
+        const dx=m.x-n.x,dy=m.y-n.y,d=Math.sqrt(dx*dx+dy*dy);
+        if(d<98){ ctx.beginPath(); ctx.moveTo(m.x,m.y); ctx.lineTo(n.x,n.y);
+          ctx.strokeStyle=`rgba(200,169,107,${.14*(1-d/98)})`; ctx.lineWidth=.5; ctx.stroke(); }
+      });
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+}
+
+/* ── PARTICLES ── */
+function initParticles() {
+  const cv = document.getElementById('ptcl');
+  const ctx = cv.getContext('2d');
+  const resize = ()=>{ cv.width=window.innerWidth; cv.height=window.innerHeight; };
+  resize();
+  window.addEventListener('resize', resize);
+  const pts = Array.from({length:85},()=>({
+    x:Math.random()*cv.width, y:Math.random()*cv.height,
+    r:Math.random()*1.4+.3, vy:-(Math.random()*.48+.08),
+    vx:(Math.random()-.5)*.18, a:Math.random()*.38+.05
+  }));
+  function draw(){
+    ctx.clearRect(0,0,cv.width,cv.height);
+    pts.forEach(p=>{
+      p.y+=p.vy; p.x+=p.vx;
+      if(p.y<-10){ p.y=cv.height+10; p.x=Math.random()*cv.width; }
+      ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle=`rgba(200,169,107,${p.a})`; ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+}
+
+/* ── CURSOR ── */
+function initCursor() {
+  const c = document.getElementById('cur');
+  const r = document.getElementById('cur2');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{ mx=e.clientX; my=e.clientY; c.style.left=mx+'px'; c.style.top=my+'px'; });
+  function tick(){ rx+=(mx-rx)*.12; ry+=(my-ry)*.12; r.style.left=rx+'px'; r.style.top=ry+'px'; requestAnimationFrame(tick); }
+  tick();
+  document.querySelectorAll('button,a,[onclick],input,textarea,select').forEach(el=>{
+    el.addEventListener('mouseenter',()=>document.body.classList.add('hovering'));
+    el.addEventListener('mouseleave',()=>document.body.classList.remove('hovering'));
+  });
+}
+
+/* ── SCROLL ── */
+function initScroll() {
+  const nav = document.getElementById('nav');
+  const obs = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('vis'); });
+  },{threshold:.1});
+  document.querySelectorAll('.rev').forEach(el=>obs.observe(el));
+  window.addEventListener('scroll',()=>{
+    nav.classList.toggle('solid', window.scrollY>70);
+  });
+}
+
+/* ── TOAST ── */
+function toast(ico,msg){
+  const t=document.getElementById('toast');
+  document.getElementById('toast-ico').textContent=ico;
+  document.getElementById('toast-msg').textContent=msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),3100);
+}
+
+/* ── CHAT ── */
+function toggleChat(){ chatOpen=!chatOpen; const w=document.getElementById('chat-win'); w.classList.toggle('open',chatOpen); if(chatOpen&&!document.getElementById('chat-msgs').children.length) initChat(); }
+function openChat(){ if(!chatOpen) toggleChat(); }
+function closeChat(){ chatOpen=false; document.getElementById('chat-win').classList.remove('open'); }
+
+function initChat(){
+  addMsg('ai','Welcome to Lumière Beauty AI 🌸\n\nMay I ask — what\'s your primary skin concern?');
+  setChips(['Oily skin','Dry skin','Anti-aging','Acne-prone','Sensitive skin']);
+}
+
+function addMsg(role,text,isTyping=false){
+  const msgs=document.getElementById('chat-msgs');
+  const div=document.createElement('div');
+  if(isTyping){ div.className='typing'; div.innerHTML='<div class="td"></div><div class="td"></div><div class="td"></div>'; div.id='typing'; }
+  else{ div.className=`msg msg-${role}`; div.textContent=text; }
+  msgs.appendChild(div); msgs.scrollTop=msgs.scrollHeight; return div;
+}
+
+function setChips(arr){
+  document.getElementById('chat-chips').innerHTML=arr.map(c=>`<button class="chip" onclick="handleChip('${c}')">${c}</button>`).join('');
+}
+
+function handleChip(t){ document.getElementById('chat-inp').value=t; sendMsg(); }
+
+function sendMsg(){
+  const inp=document.getElementById('chat-inp');
+  const text=inp.value.trim(); if(!text) return;
+  addMsg('user',text); inp.value='';
+  document.getElementById('chat-chips').innerHTML='';
+  const typing=addMsg('ai','',true);
+  setTimeout(()=>{
+    typing.remove();
+    const l=text.toLowerCase();
+    let resp='I\'d love to help! Could you tell me more about your skin type and main concerns? I can then create a personalized morning and evening routine. 💫';
+    for(const [k,v] of Object.entries(CHAT_RESPONSES)){ if(l.includes(k)){resp=v;break;} }
+    addMsg('ai',resp);
+    setChips(['Show products','What about SPF?','Morning routine','Evening routine']);
+  },1200);
+}
+
+/* ── VOICE ── */
+function toggleVoice(){
+  voiceOn=!voiceOn;
+  const btn=document.getElementById('voice-btn');
+  btn.classList.toggle('listening',voiceOn);
+  if(voiceOn){ toast('🎙','Listening — try "Show anti-aging products"'); setTimeout(()=>{ voiceOn=false; btn.classList.remove('listening'); toast('✨','Voice: "Show anti-aging products"'); },4000); }
+}
+
+/* ── NAV SCROLL ── */
+function scrollTo(id){ document.getElementById(id)?.scrollIntoView({behavior:'smooth'}); }
+document.querySelectorAll('.nav-links a').forEach(a=>{
+  a.addEventListener('click',e=>{ e.preventDefault(); const t=a.getAttribute('href').replace('#',''); scrollTo(t); });
+});
+
+/* ── INIT ── */
+document.addEventListener('DOMContentLoaded',()=>{
+  renderProducts();
+  renderBadges();
+  renderChallenges();
+  renderMirror();
+  buildMarquee();
+  initParticles();
+  initCursor();
+  initScroll();
+  analyzeIng();
+  setTimeout(initMol, 600);
+});
+</script>
+</body>
+</html>
